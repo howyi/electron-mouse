@@ -27,6 +27,7 @@ interface Window {
 		on: typeof import("electron").ipcRenderer.on;
 		off: typeof import("electron").ipcRenderer.off;
 		send: typeof import("electron").ipcRenderer.send;
+		// biome-ignore lint/suspicious/noExplicitAny: default
 		invoke: <T = any>(channel: string, ...args: any[]) => Promise<T>;
 	};
 }
