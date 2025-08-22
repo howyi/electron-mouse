@@ -1,8 +1,8 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-createRequire(import.meta.url);
+const require2 = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 process.env.APP_ROOT = path.join(__dirname, "..");
 const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
@@ -14,6 +14,8 @@ function createWindow() {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, "electron-vite.svg"),
     webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.mjs")
     }
   });
@@ -36,6 +38,16 @@ app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
+});
+ipcMain.handle("moveMouseToCenterAndClick", async () => {
+  console.log("Received request to move mouse to center and click3");
+  const robot = require2("robotjs");
+  const screenSize = robot.getScreenSize();
+  const x = screenSize.width / 2;
+  const y = screenSize.height / 2;
+  robot.moveMouse(x, y);
+  robot.mouseClick();
+  return { x, y };
 });
 app.whenReady().then(createWindow);
 export {
