@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build && electron-builder",
+		"rebuild": "electron-rebuild",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"lintf": "biome check --write --unsafe"
@@ -15,6 +16,7 @@
 		"@tailwindcss/vite": "^4.1.12",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
+		"electron-rebuild": "^3.2.9",
 		"lucide-react": "^0.541.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
