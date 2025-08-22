@@ -7,6 +7,7 @@ export default function Page() {
 	const handleClick = async () => {
 		// IPC経由でmainプロセスにマウス操作を依頼
 		console.log("Requesting to move mouse to center and click");
+		// @ts-ignore
 		const result = await ipcRenderer.invoke("moveMouseToCenterAndClick");
 		alert(
 			`Mouse moved and clicked at the center of the screen! (x: ${result.x}, y: ${result.y})`,
